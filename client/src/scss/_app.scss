@@ -1,0 +1,20 @@
+.p-8,
+.p-6 {
+    @media (max-width:768px) {
+        padding: 16px !important;
+    }
+}
+
+.dashboard {
+    height: 100vh;
+    // overflow-y: scroll;
+    // overflow-x: hidden;
+
+    header {
+        margin-bottom: 0 !important;
+    }
+}
+
+.lead-detail {
+    height: 100vh;
+}
