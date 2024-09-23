@@ -10,6 +10,7 @@ import {
   FaCalendarAlt,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useLeads } from "../contexts/LeadsContext";
 
 const leadsData = [
   {
@@ -107,21 +108,23 @@ const leadsData = [
 
 const LeadsTable = () => {
   const navigate = useNavigate();
+  const { setSelectedLead } = useLeads();
+
   const [currentPage, setCurrentPage] = useState(1);
   const leadsPerPage = 5;
-
   const totalPages = Math.ceil(leadsData.length / leadsPerPage);
   const currentLeads = leadsData.slice(
     (currentPage - 1) * leadsPerPage,
     currentPage * leadsPerPage
   );
 
-  const handleViewDetails = (leadName) => {
-    navigate(`/lead-details`);
-  };
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
+  };
+
+  const handleViewDetails = (lead) => {
+    setSelectedLead(lead);
+    navigate(`/lead-details`);
   };
 
   return (
@@ -208,7 +211,7 @@ const LeadsTable = () => {
                   </td>
                   <td className="px-1 py-2 flex flex-col gap-3 items-center justify-center">
                     <button
-                      onClick={() => handleViewDetails(lead.name)}
+                      onClick={() => handleViewDetails(lead)}
                       className="bg-purple-200 text-purple-800 w-full px-3 py-1 rounded hover:bg-purple-300 transition text-sm"
                     >
                       View

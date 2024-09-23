@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaUser,
   FaEnvelope,
@@ -10,10 +10,19 @@ import {
   FaChevronDown,
   FaChevronUp,
 } from "react-icons/fa";
+import { useLeads } from "../contexts/LeadsContext";
 
 const LeadInfo = () => {
+  const { selectedLead } = useLeads();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [leadStatus, setLeadStatus] = useState("New");
+  const [leadStatus, setLeadStatus] = useState("");
+
+  // Set lead status once the selectedLead is available
+  useEffect(() => {
+    if (selectedLead) {
+      setLeadStatus(selectedLead.leadStatus);
+    }
+  }, [selectedLead]);
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
@@ -21,6 +30,11 @@ const LeadInfo = () => {
     setLeadStatus(status);
     setIsDropdownOpen(false);
   };
+
+  // Return early if selectedLead is null or undefined
+  if (!selectedLead) {
+    return <div className="bg-white rounded-md mb-4 p-6 text-center text-gray-600">No lead selected.</div>;
+  }
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg mb-6">
@@ -33,9 +47,11 @@ const LeadInfo = () => {
           <FaUser className="text-blue-500 mr-4 text-xl" />
           <div>
             <p className="text-lg font-semibold text-gray-700">
-              Lead: John Doe
+              Lead: {selectedLead.name}
             </p>
-            <p className="text-sm text-gray-500">Company: ABC Corp</p>
+            <p className="text-sm text-gray-500">
+              Company: {selectedLead.company}
+            </p>
           </div>
         </div>
 
@@ -44,9 +60,9 @@ const LeadInfo = () => {
           <FaEnvelope className="text-red-500 mr-4 text-xl" />
           <div>
             <p className="text-lg font-semibold text-gray-700">
-              Contact: john@example.com
+              Contact: {selectedLead.email}
             </p>
-            <p className="text-sm text-gray-500">Phone: (123) 456-7890</p>
+            <p className="text-sm text-gray-500">Phone: {selectedLead.phone}</p>
           </div>
         </div>
 
@@ -55,10 +71,10 @@ const LeadInfo = () => {
           <FaGlobe className="text-green-500 mr-4 text-xl" />
           <div>
             <p className="text-lg font-semibold text-gray-700">
-              Source: Website
+              Source: {selectedLead.source}
             </p>
             <p className="text-sm text-gray-500">
-              Campaign: Summer 2024 Promotion
+              Campaign: {selectedLead.campaign}
             </p>
           </div>
         </div>
@@ -68,9 +84,11 @@ const LeadInfo = () => {
           <FaUserTie className="text-purple-500 mr-4 text-xl" />
           <div>
             <p className="text-lg font-semibold text-gray-700">
-              Assigned to: Jane Smith
+              Assigned to: {selectedLead.assignedTo}
             </p>
-            <p className="text-sm text-gray-500">Department: Sales</p>
+            <p className="text-sm text-gray-500">
+              Department: {selectedLead.department}
+            </p>
           </div>
         </div>
 
@@ -79,9 +97,7 @@ const LeadInfo = () => {
           <FaMapMarkerAlt className="text-yellow-500 mr-4 text-xl" />
           <div>
             <p className="text-lg font-semibold text-gray-700">Address:</p>
-            <p className="text-sm text-gray-500">
-              123 Main St, Springfield, USA
-            </p>
+            <p className="text-sm text-gray-500">{selectedLead.address}</p>
           </div>
         </div>
 
@@ -141,9 +157,8 @@ const LeadInfo = () => {
           <FaCalendarAlt className="text-indigo-500 mr-4 text-xl" />
           <div>
             <p className="text-lg font-semibold text-gray-700">
-              Created on: 20th Sep 2024
+              Created on: {selectedLead.createdOn}
             </p>
-            <p className="text-sm text-gray-500">Status: Follow-up needed</p>
           </div>
         </div>
       </div>

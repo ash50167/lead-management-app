@@ -9,7 +9,7 @@ const Sidebar = () => {
   return (
     <aside
       className={`bg-gradient-to-b from-blue-600 to-green-400 h-screen transition-all ${
-        isOpen ? "w-48" : "w-12"
+        isOpen ? "min-w-48" : "min-w-12"
       } duration-300`}
     >
       <div className="flex justify-between items-center p-4">
