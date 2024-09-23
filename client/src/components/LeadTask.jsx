@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 
 const statusStyles = {
-  New: "bg-green-100 text-green-600",
-  "In Progress": "bg-yellow-100 text-yellow-600",
-  Completed: "bg-blue-100 text-blue-600",
-  "Follow-up Needed": "bg-red-100 text-red-600",
+  New: "bg-green-100 text-sm text-green-600 px-3 py-0.5 rounded-md",
+  "In Progress": "bg-yellow-100 text-sm text-yellow-600 px-3 py-0.5 rounded-md",
+  Completed: "bg-blue-100 text-sm text-blue-600 px-3 py-0.5 rounded-md",
+  Pending: "bg-red-100 text-sm text-red-600 px-3 py-0.5 rounded-md",
 };
 
 const TasksReminders = ({ leadName }) => {
@@ -21,6 +21,12 @@ const TasksReminders = ({ leadName }) => {
       text: "Prepare presentation for the meeting",
       dueDate: "2024-10-05",
       status: "In Progress",
+    },
+    {
+      id: 2,
+      text: "Prepare presentation for client",
+      dueDate: "2024-10-05",
+      status: "Pending",
     },
   ]);
 
@@ -47,7 +53,6 @@ const TasksReminders = ({ leadName }) => {
   const handleAddEditTask = () => {
     if (newTask) {
       if (editTaskId) {
-        // Edit task
         setTasks(
           tasks.map((task) =>
             task.id === editTaskId
@@ -61,7 +66,6 @@ const TasksReminders = ({ leadName }) => {
           )
         );
       } else {
-        // Add new task
         setTasks([
           ...tasks,
           {
@@ -91,9 +95,7 @@ const TasksReminders = ({ leadName }) => {
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg mb-6">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">
-          Tasks & Reminders
-        </h2>
+        <h2 className="text-2xl font-bold text-gray-800">Tasks & Reminders</h2>
         <button
           onClick={toggleModal}
           className="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition-all duration-300 flex items-center"
@@ -113,11 +115,7 @@ const TasksReminders = ({ leadName }) => {
                 <p className="text-lg font-semibold text-gray-700">
                   {task.text}
                 </p>
-                <div
-                  className={`px-2 py-1 rounded-full ${
-                    statusStyles[task.status]
-                  }`}
-                >
+                <div className={`${statusStyles[task.status]}`}>
                   {task.status}
                 </div>
               </div>
@@ -172,7 +170,7 @@ const TasksReminders = ({ leadName }) => {
               <option value="New">New</option>
               <option value="In Progress">In Progress</option>
               <option value="Completed">Completed</option>
-              <option value="Follow-up Needed">Follow-up Needed</option>
+              <option value="Pending">Pending</option>
             </select>
             <div className="flex justify-end">
               <button

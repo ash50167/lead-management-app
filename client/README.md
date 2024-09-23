@@ -1,8 +1,24 @@
-# React + Vite
+# Lead Management Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is built using **React**, **Vite**, **Tailwind CSS**, and other modern web development tools. Below are the steps to set up the project and run it on a local development server.
 
-Currently, two official plugins are available:
+## Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Make sure you have the following installed on your system:
+- [Node.js](https://nodejs.org/en/download/) (version 14 or later)
+- [npm](https://www.npmjs.com/get-npm) (Node Package Manager)
+
+// step-1 : go to client directory from lead-management-app
+
+ cd client
+
+// step-2 : install node package manager
+
+npm install
+
+// step-3 : run on local server
+
+npm run dev
+
+-- This will start the local server, and the application will be available at http://localhost:5173 (or a similar port) in your web browser.
+
