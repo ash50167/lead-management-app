@@ -23,7 +23,7 @@ const NotificationBell = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       simulateNotification();
-    }, 10000);
+    }, 30000);
 
     return () => clearInterval(interval);
   }, []);
