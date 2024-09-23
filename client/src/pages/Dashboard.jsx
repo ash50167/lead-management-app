@@ -7,7 +7,6 @@ import StatusGraphs from "../components/StatusGraphs";
 import TaskList from "../components/TaskList";
 import QuickActions from "../components/QuickActions";
 import { useRole } from "../contexts/RoleContext";
-import LeadsTable from "../components/LeadsTable";
 
 const Dashboard = () => {
   const { role } = useRole();
@@ -22,7 +21,6 @@ const Dashboard = () => {
           <LeadSummary />
           <StatusGraphs />
           <TaskList selectedRole={role} />
-          <LeadsTable />
           <QuickActions />
         </div>
       </div>

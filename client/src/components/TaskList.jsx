@@ -204,7 +204,7 @@ const TaskList = ({ selectedRole }) => {
                       taskIndex
                     )
                   }
-                  className="bg-blue-100 text-blue-600 p-2 rounded-md hover:bg-blue-200 transition"
+                  className="bg-yellow-100 text-yellow-600 p-2 rounded-md hover:bg-yellow-200 transition"
                 >
                   <FaEdit />
                 </button>

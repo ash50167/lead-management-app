@@ -1,150 +1,252 @@
-import React from "react";
-import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import {
+  FaUser,
+  FaEnvelope,
+  FaGlobe,
+  FaUserTie,
+  FaTag,
+  FaMapMarkerAlt,
+  FaCalendarAlt,
+} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const leadsData = [
   {
-    name: "Acuity Infotech FZCO",
-    code: "ACIN01",
-    phone: "+91 99999 99991",
-    country: "India",
+    name: "John Doe",
+    company: "ABC Corp",
+    email: "john@example.com",
+    phone: "(123) 456-7890",
+    source: "Website",
+    campaign: "Summer 2024 Promotion",
+    assignedTo: "Jane Smith",
+    department: "Sales",
+    address: "123 Main St, Springfield, USA",
+    leadStatus: "New",
+    createdOn: "20th Sep 2024",
   },
   {
-    name: "ABC Infotech",
-    code: "ABC1",
-    phone: "+91 99999 99992",
-    country: "India",
+    name: "Emily Parker",
+    company: "XYZ Ltd",
+    email: "emily@example.com",
+    phone: "(987) 654-3210",
+    source: "Email",
+    campaign: "Winter 2023 Campaign",
+    assignedTo: "Mark Johnson",
+    department: "Marketing",
+    address: "456 Elm St, Brooklyn, USA",
+    leadStatus: "In Progress",
+    createdOn: "15th Sep 2024",
   },
   {
-    name: "NEW Infotech",
-    code: "NEW",
-    phone: "+91 99999 99993",
-    country: "India",
+    name: "Robert Brown",
+    company: "Tech Innovations",
+    email: "robert@example.com",
+    phone: "(555) 123-4567",
+    source: "Referral",
+    campaign: "Q3 2024 Outreach",
+    assignedTo: "Laura White",
+    department: "Customer Support",
+    address: "789 Oak St, San Francisco, USA",
+    leadStatus: "Follow-up Needed",
+    createdOn: "10th Sep 2024",
   },
   {
-    name: "ABC Infotech 2",
-    code: "ACIN02",
-    phone: "+91 99999 99994",
-    country: "India",
+    name: "Sophia Miller",
+    company: "Finance Pros",
+    email: "sophia@example.com",
+    phone: "(321) 654-9870",
+    source: "LinkedIn",
+    campaign: "Financial Strategy 2024",
+    assignedTo: "Daniel Thompson",
+    department: "Finance",
+    address: "741 Maple Ave, Chicago, USA",
+    leadStatus: "Closed",
+    createdOn: "5th Sep 2024",
   },
   {
-    name: "ABC Infotech 3",
-    code: "ACIN03",
-    phone: "+91 99999 99995",
-    country: "India",
+    name: "David Clark",
+    company: "Real Estate Group",
+    email: "david@example.com",
+    phone: "(432) 567-8901",
+    source: "Referral",
+    campaign: "Real Estate Expo 2024",
+    assignedTo: "Eva Green",
+    department: "Business Development",
+    address: "852 Pine St, Los Angeles, USA",
+    leadStatus: "In Progress",
+    createdOn: "25th Aug 2024",
   },
   {
-    name: "ABC Infotech 4",
-    code: "ACIN04",
-    phone: "+91 99999 99996",
-    country: "India",
+    name: "Jessica Lopez",
+    company: "E-Commerce Inc",
+    email: "jessica@example.com",
+    phone: "(123) 987-6543",
+    source: "Social Media",
+    campaign: "Black Friday Deals 2024",
+    assignedTo: "Michael Brown",
+    department: "Sales",
+    address: "963 Cedar St, Austin, USA",
+    leadStatus: "New",
+    createdOn: "10th Sep 2024",
   },
   {
-    name: "ABC Infotech 5",
-    code: "ACIN05",
-    phone: "+91 99999 99997",
-    country: "India",
+    name: "Kevin Harris",
+    company: "Health Solutions",
+    email: "kevin@example.com",
+    phone: "(555) 456-7890",
+    source: "Conference",
+    campaign: "Health Expo 2024",
+    assignedTo: "Anna Lee",
+    department: "Healthcare",
+    address: "321 Willow St, Seattle, USA",
+    leadStatus: "Follow-up Needed",
+    createdOn: "18th Aug 2024",
   },
 ];
 
 const LeadsTable = () => {
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const leadsPerPage = 5;
 
-  const handleViewDetails = (leadCode) => {
-    navigate(`/leads`);
+  const totalPages = Math.ceil(leadsData.length / leadsPerPage);
+  const currentLeads = leadsData.slice(
+    (currentPage - 1) * leadsPerPage,
+    currentPage * leadsPerPage
+  );
+
+  const handleViewDetails = (leadName) => {
+    navigate(`/lead-details`);
   };
 
-  const handleEditLead = (leadCode) => {
-    console.log(`Edit lead with code: ${leadCode}`);
-  };
-
-  const handleDeleteLead = (leadCode) => {
-    console.log(`Delete lead with code: ${leadCode}`);
-  };
-
-  const handleAddNewLead = () => {
-    console.log("Add new lead");
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   return (
     <div className="bg-gray-100">
-      <div className="max-w-6xl mx-auto bg-white p-6 rounded-lg">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">All Leads</h2>
-          <button
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center space-x-2"
-            onClick={handleAddNewLead}
-          >
-            <FaPlus className="text-white" />
-            <span>Add New Lead</span>
-          </button>
-        </div>
+      <div className="max-w-6xl mx-auto bg-white p-2 rounded-lg shadow-lg">
+        <h2 className="text-xl font-semibold px-6 mb-4">All Leads</h2>
         <div className="overflow-x-auto">
           <table className="min-w-full bg-gray-50 rounded-lg">
             <thead>
               <tr className="text-left bg-gray-200">
-                <th className="px-4 py-3 text-sm  font-medium text-gray-700">
-                  Lead details
+                <th className="px-1 py-2 text-sm font-medium text-gray-700">
+                  <FaUser className="inline-block mr-1 text-blue-600" /> Lead
+                  Info
                 </th>
-                <th className="px-4 py-3 text-sm  font-medium text-gray-700">
-                  Code
+                <th className="px-1 py-2 text-sm font-medium text-gray-700">
+                  <FaEnvelope className="inline-block mr-1 text-red-600" />{" "}
+                  Contact
                 </th>
-                <th className="px-4 py-3 text-sm  font-medium text-gray-700">
-                  Phone
+                <th className="px-1 py-2 text-sm font-medium text-gray-700">
+                  <FaGlobe className="inline-block mr-1 text-green-600" />{" "}
+                  Source & Campaign
                 </th>
-                <th className="px-4 py-3 text-sm  font-medium text-gray-700">
-                  Country
+                <th className="px-1 py-2 text-sm font-medium text-gray-700">
+                  <FaUserTie className="inline-block mr-1 text-purple-600" />{" "}
+                  Assigned To
                 </th>
-                <th className="px-4 py-3 text-sm text-center font-medium text-gray-700">
+                <th className="px-1 py-2 text-sm font-medium text-gray-700">
+                  <FaMapMarkerAlt className="inline-block mr-1 text-yellow-600" />{" "}
+                  Address
+                </th>
+                <th className="px-1 py-2 text-sm font-medium text-gray-700">
+                  <FaTag className="inline-block mr-1 text-teal-600" /> Status
+                </th>
+                <th className="px-1 py-2 text-sm font-medium text-gray-700">
+                  <FaCalendarAlt className="inline-block mr-1 text-indigo-600" />{" "}
+                  Created
+                </th>
+                <th className="px-1 py-2 text-sm text-center font-medium text-gray-700">
                   Actions
                 </th>
               </tr>
             </thead>
             <tbody>
-              {leadsData.map((lead, index) => (
+              {currentLeads.map((lead, index) => (
                 <tr key={index} className="border-b hover:bg-gray-100">
-                  <td className="px-4 py-3 flex items-center">
-                    <img
-                      src={`https://via.placeholder.com/40`}
-                      alt={lead.name}
-                      className="w-8 h-8 rounded-full mr-4"
-                    />
-                    <div>
-                      <p className="font-medium text-gray-800 text-sm">
-                        {lead.name}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        {lead.code.toLowerCase()}@company.com
-                      </p>
-                    </div>
+                  <td className="px-1 py-2">
+                    <p className="text-sm font-semibold text-gray-800">
+                      {lead.name}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      Company: {lead.company}
+                    </p>
                   </td>
-                  <td className="px-4 py-3 text-sm">{lead.code}</td>
-                  <td className="px-4 py-3 text-sm">{lead.phone}</td>
-                  <td className="px-4 py-3 text-sm">{lead.country}</td>
-                  <td className="px-4 py-3 flex space-x-2 justify-center">
+                  <td className="px-1 py-2">
+                    <p className="text-xs text-gray-700">{lead.email}</p>
+                    <p className="text-xs text-gray-700">{lead.phone}</p>
+                  </td>
+                  <td className="px-1 py-2">
+                    <p className="text-xs text-gray-700">
+                      Source: {lead.source}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      Campaign: {lead.campaign}
+                    </p>
+                  </td>
+                  <td className="px-1 py-2">
+                    <p className="text-xs text-gray-700">
+                      Assigned to: {lead.assignedTo}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      Dept: {lead.department}
+                    </p>
+                  </td>
+                  <td className="px-1 py-2">
+                    <p className="text-xs text-gray-500">{lead.address}</p>
+                  </td>
+                  <td className="px-1 py-2">
+                    <p className="text-xs font-semibold text-gray-800">
+                      {lead.leadStatus}
+                    </p>
+                  </td>
+                  <td className="px-1 py-2">
+                    <p className="text-xs text-gray-500">{lead.createdOn}</p>
+                  </td>
+                  <td className="px-1 py-2 flex flex-col gap-3 items-center justify-center">
                     <button
-                      onClick={() => handleViewDetails(lead.code)}
-                      className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition text-sm"
+                      onClick={() => handleViewDetails(lead.name)}
+                      className="bg-purple-200 text-purple-800 w-full px-3 py-1 rounded hover:bg-purple-300 transition text-sm"
                     >
                       View
                     </button>
-                    <button
-                      onClick={() => handleEditLead(lead.code)}
-                      className="bg-blue-100 text-blue-600 p-2 rounded-md hover:bg-blue-200 transition"
-                    >
-                      <FaEdit />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteLead(lead.code)}
-                      className="bg-red-100 text-red-600 p-2 rounded-md hover:bg-red-200 transition"
-                    >
-                      <FaTrash />
-                    </button>
+                    <div className="flex items-center gap-3 m-0">
+                      <button
+                        onClick={() => console.log(`Edit lead: ${lead.name}`)}
+                        className="bg-yellow-100 text-yellow-600 p-2 rounded-md hover:bg-yellow-200 transition"
+                      >
+                        <FaEdit />
+                      </button>
+                      <button
+                        onClick={() => console.log(`Delete lead: ${lead.name}`)}
+                        className="bg-red-100 text-red-600 p-2 rounded-md hover:bg-red-200 transition"
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="flex justify-center mt-4">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              className={`px-4 py-2 mx-1 rounded ${
+                currentPage === index + 1
+                  ? "bg-purple-300 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
         </div>
       </div>
     </div>

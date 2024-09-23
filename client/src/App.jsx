@@ -1,10 +1,9 @@
 import "../public/css/style.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-// import SideBar from "./components/SideBar";
-// import NavBar from "./components/NavBar";
+import { RoleProvider } from "./contexts/RoleContext";
 import Dashboard from "./pages/Dashboard";
 import Leaddetail from "./pages/Leaddetail";
-import { RoleProvider } from "./contexts/RoleContext";
+import Leads from "./pages/Leads";
 
 function App() {
   return (
@@ -13,7 +12,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/leads" element={<Leaddetail />} />
+            <Route path="/leads" element={<Leads />} />
+            <Route path="/lead-details" element={<Leaddetail />} />
           </Routes>
         </BrowserRouter>
       </RoleProvider>
