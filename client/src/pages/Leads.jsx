@@ -8,7 +8,7 @@ const Leads = () => {
     <>
       <div className="flex">
         <SideBar />
-        <div className="leads w-full overflow-y-auto bg-gray-100 p-6">
+        <div className="leads max-h-screen overflow-y-auto bg-gray-100 p-6">
           <NavBar />
           <LeadsTable />
         </div>

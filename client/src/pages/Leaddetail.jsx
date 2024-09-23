@@ -12,7 +12,7 @@ const Leaddetail = () => {
     <>
       <div className="flex">
         <SideBar />
-        <div className="lead-detail w-full min-h-screen overflow-y-auto bg-gray-100 p-6">
+        <div className="lead-detail max-h-screen overflow-y-auto bg-gray-100 p-6">
           <NavBar/>
           <LeadInfo />
           <ActivityTimeline />
