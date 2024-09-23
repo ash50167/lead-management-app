@@ -1,15 +1,6 @@
 import React, { useState } from "react";
 import { FaBell, FaSearch, FaUser } from "react-icons/fa";
-
-// Notification Bell Component
-const NotificationBell = () => (
-  <button className="relative">
-    <FaBell className="text-gray-600 text-xl" />
-    <span className="absolute bottom-3 left-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 text-center">
-      3
-    </span>
-  </button>
-);
+import NotificationBell from "./NotificationBell";
 
 // Search Bar Component
 const SearchBar = () => (
